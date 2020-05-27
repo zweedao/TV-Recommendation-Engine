@@ -25,9 +25,9 @@ We are then going to evaluate this system for the 500th user of the dataset - le
 
 ## How to run
 
-In your terminal:
+In your terminal, type:
 
-  python recommendation.py
+    python recommendation.py
   
 The recommender engine will display the top 5 recommended shows for Alex, based on different recommendation methods.
   
