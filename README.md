@@ -19,7 +19,7 @@ The goal is to implent a TV show recommender system based on these methods:
 
 - Item-based collaborative filtering
 
-- Latent model using Singular Value Decomposition
+- Latent factor model using Singular Value Decomposition
 
 We are then going to evaluate this system for the 500th user of the dataset - let’s call him Alex. In order to do so, we have erased the first 100 entries of Alex’s row in the matrix, and replaced them by 0s. This means that we don’t know which of the first 100 shows Alex has watched. Based on Alex’s behavior on the other shows, we need to give Alex recommendations on the first 100 shows. We will then see if our recommendations match what Alex had in fact watched.
 
