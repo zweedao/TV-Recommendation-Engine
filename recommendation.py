@@ -14,6 +14,7 @@ shows = np.array(pd.read_csv(folder_url + "shows.txt", header=None))
 user_shows = np.loadtxt(folder_url + "user-shows.txt")
 
 #Select user Alex id 500
+user_shows_true = [index for index, value in enumerate(user_shows[500][100:]) if value > 0]
 user_shows[500][:100] = 0
 
 ## Part A - Collaborative Fitering, User-based
@@ -24,8 +25,10 @@ alex_ratings_A = np.sum(alex_ratings_A, axis=0)
 
 #top 5 Alex's ratings
 alex_top_A = np.argsort(-alex_ratings_A, axis=0)[:5]
-alex_top_A = shows[alex_top_A]
-print('Recommendation for Alex (user-based collaborative filtering):\n',alex_top_A)
+alex_top_A_shows = shows[alex_top_A]
+print('Recommendation for Alex (user-based collaborative filtering):\n',alex_top_A_shows)
+print('Accuracy:', len([i for i in alex_top_A if i in user_shows_true ])/len(alex_top_A))
+print('\n')
 
 ## Part B - Collaborative Filtering, Item-based
 show_ratings = np.delete(user_shows, 500, axis=0).T
@@ -36,8 +39,10 @@ alex_ratings_B = np.sum(alex_ratings_B[:,:100], axis=0)
 
 #top 5 Alex's ratings
 alex_top_B = np.argsort(-alex_ratings_B, axis=0)[:5]
-alex_top_B = shows[alex_top_B]
-print('Recommendation for Alex (item-based collaborative filtering):\n',alex_top_B)
+alex_top_B_shows = shows[alex_top_B]
+print('Recommendation for Alex (item-based collaborative filtering):\n',alex_top_B_shows)
+print('Accuracy:', len([i for i in alex_top_B if i in user_shows_true ])/len(alex_top_B))
+print('\n')
 
 ## Part C - Latent hidden model - SVD
 U, S, VT = svd(user_shows)
@@ -51,5 +56,8 @@ user_ratings_svd = U[:,:k].dot(Sigma[:k,:k]).dot(VT[:k,:])
 #top 5 Alex's ratings
 alex_ratings_C = user_ratings_svd[500,:100]
 alex_top_C = np.argsort(-alex_ratings_C, axis=0)[:5]
-alex_top_C = shows[alex_top_C]
-print('Recommendation for Alex (SVD model):\n',alex_top_C)
+alex_top_C_shows = shows[alex_top_C]
+print('Recommendation for Alex (SVD model):\n',alex_top_C_shows)
+print('Accuracy:', len([i for i in alex_top_C if i in user_shows_true ])/len(alex_top_C))
+print('\n')
+
